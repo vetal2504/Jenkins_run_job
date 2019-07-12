@@ -15,3 +15,6 @@
 - name: Pause. Please wait 20 seconds
   pause:
     seconds: 20
+
+-name: Get all IP address from EC2 account
+  shell: ./ec2.py --list
