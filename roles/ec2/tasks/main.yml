@@ -1,0 +1,17 @@
+---
+- name: Launching ec2
+  ec2:
+    aws_access_key: "{{ AWS_ACCEESS_KEY }}"
+    aws_secret_key: "{{ AWS_SECRET_KEY }}"
+    instance_type: "{{ instance_type }}"
+    key_name: "{{ key_name }}"
+    image: "{{ image }}"
+    region: "{{ region }}"
+    group: "{{ group }}"
+    vpc_subnet_id: "{{ vpc_subnet_id }}"
+    wait: yes
+    assign_public_ip: yes
+
+- name: Pause. Please wait 20 seconds
+  pause:
+    seconds: 20

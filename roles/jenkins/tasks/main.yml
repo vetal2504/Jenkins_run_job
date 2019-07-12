@@ -1,0 +1,33 @@
+---
+# tasks file for jenkins
+- name: Download key for Jenkins
+  shell: wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | apt-key add -
+
+- name: Add Jenkins to repositore
+  shell: echo "deb http://pkg.jenkins.io/debian-stable binary/" | sudo tee /etc/apt/sources.list.d/jenkins.list
+
+- name: Update after add key
+  apt:
+    update_cache: yes
+
+- name: Install Jenkins
+  apt:
+    name: jenkins
+    state: latest
+
+- name: Init Jenkins
+  shell: cat /var/lib/jenkins/secrets/initialAdminPassword
+  changed_when: false
+  register: result
+
+- name: Copy default config jenkins in remote host
+  shell: cp /etc/default/jenkins /etc/default/jenkins.backup
+
+- name: Copy backup Jenkins to remote host
+  template: src=backup.jenkins.j2 dest=/etc/default/
+
+- name: Print init password jenkins
+  debug:
+    var: result.stdout
+  notify:
+    - Restart jenkins

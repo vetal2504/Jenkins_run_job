@@ -1,0 +1,7 @@
+---
+- name: Run instance
+  hosts: localhost
+  become: yes
+
+  roles:
+    - ec2

@@ -1,0 +1,37 @@
+---
+# tasks file for nginx
+- name: Install aptitude
+  apt:
+    name: aptitude
+    state: latest
+
+- name: Update node
+  apt:
+    update_cache: yes
+
+- name: Upgrade node
+  apt:
+    upgrade: yes
+
+- name: Install nginx and java
+  apt:
+    name:
+    - nginx
+    - openjdk-8-jdk
+    - apache2-utils
+    state: latest
+
+- name: Create backup config nginx in server
+  shell: cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
+
+- name: Copy config file to remote host for nginx
+  template:
+    src: backup.nginx.j2
+    dest: /etc/nginx/sites-available/default
+
+- name: Copy .htpasswd to nginx
+  template:
+    src: .htpasswd.j2
+    dest: /etc/nginx/.htpasswd
+  notify:
+    - Restart nginx

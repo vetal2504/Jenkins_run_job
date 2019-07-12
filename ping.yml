@@ -1,0 +1,8 @@
+---
+- name: Ping to host
+  hosts: all
+  remote_user: ubuntu
+  become: yes
+
+  tasks:
+    - ping:
