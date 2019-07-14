@@ -1,0 +1,11 @@
+---
+- name: Install python 2.0 on host
+  hosts: all
+  remote_user: ubuntu
+  become: yes
+
+  tasks:
+  - name: Install aptitude
+    apt:
+      name: aptitude
+      state: latest
