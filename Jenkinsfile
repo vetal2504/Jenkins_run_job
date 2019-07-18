@@ -9,8 +9,8 @@ pipeline {
         //}
         stage('Get all instances instances') {
             steps {
-                sh 'aws ec2 describe-instances --filters \"Name=instance.group-name,Values=newInstance\" --query \"Reservations[*].Instances[*].PublicIpAddress\" --output=text >> hosts'
-            }
+       		sh 'aws ec2 describe-instances --filters \"Name=instance.group-name,Values=newInstance\" --query \"Reservations[*].Instances[*].PublicIpAddress\" --output=text >> hosts'
+            	}
 	}
 	stage('Test available instances') {
             steps {
