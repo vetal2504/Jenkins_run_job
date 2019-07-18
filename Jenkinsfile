@@ -9,12 +9,12 @@ pipeline {
         //}
         stage('Get all instances instances') {
             steps {
-       		sh 'aws ec2 describe-instances --filters \"Name=instance.group-name,Values=newInstance\" --query \"Reservations[*].Instances[*].PublicIpAddress\" --output=text > hosts'
+       		sh "aws ec2 describe-instances --filters \"Name=instance.group-name,Values=newInstance\" --query \"Reservations[*].Instances[*].PublicIpAddress\" --output=text > iphosts"
             	}
 	}
 	stage('Test available instances') {
             steps {
-		sh "sudo ansible all -i hosts -m ping --private-key=/home/ubuntu/ansible.pem -u ubuntu"
+		sh "ansible all -i hosts -m ping --private-key=/home/ubuntu/ansible.pem -u ubuntu"
 		}
         }
         stage ('Manage instances') {
