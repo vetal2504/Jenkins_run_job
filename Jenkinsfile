@@ -14,7 +14,7 @@ pipeline {
 	}
 	stage('Test available instances') {
             steps {
-		sh "ansible all -i hosts -m ping --private-key=/home/ubuntu/ansible.pem -u ubuntu"
+		sh "sudo ansible all -i hosts -m ping --private-key=/home/ubuntu/ansible.pem -u ubuntu"
 		}
         }
         stage ('Manage instances') {
